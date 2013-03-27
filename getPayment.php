@@ -5,11 +5,11 @@ require_once 'OAuth.php';
 
 $accessTokenData= getAccessToken($links,$creds);
 
-$paymentId='';
+$paymentId='4771';
 $paymentData= new ParamsAndHeaders($links['getPaymentById'],$creds,$accessTokenData,null,$paymentId);
 
 $paymentData->createHeader($info);
 
-parse_str(sendRequest($paymentData->headers, $paymentData->linkArray),$paymentResponse);
+sendRequest($paymentData->headers, $paymentData->linkArray);
 
 ?>
