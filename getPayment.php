@@ -1,15 +1,16 @@
 <?php
 
-require_once 'enterCreds2.php';
-require_once 'OAuth.php';
+    require 'ConfigFactory.php';
+    require 'OAuthFactory.php';
 
-$accessTokenData= getAccessToken($links,$creds);
-
-$paymentId='4771';
-$paymentData= new ParamsAndHeaders($links['getPaymentById'],$creds,$accessTokenData,null,$paymentId);
-
-$paymentData->createHeader($info);
-
-sendRequest($paymentData->headers, $paymentData->linkArray);
+    $accessTokenData=getAccessToken();
+    
+    $endpoint = ConfigFactory::getEndpoints();
+    
+    $paymentId='';
+    $payment = new OAuthFactory($endpoint['getPaymentById'], $accessTokenData, null, $paymentId );
+    $payment->createHeader();
+    
+    sendRequest($payment->headers, $payment->linkArray );
 
 ?>
