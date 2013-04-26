@@ -7,10 +7,12 @@
     
     $endpoint = ConfigFactory::getEndpoints();
     
-    $paymentId='';
+    $paymentId=$argv[1];
     $payment = new OAuthFactory($endpoint['getPaymentById'], $accessTokenData, null, $paymentId );
     $payment->createHeader();
     
-    sendRequest($payment->headers, $payment->linkArray );
+    $paymentData=sendRequest($payment->headers, $payment->linkArray );
+    
+    echo "\n\n\n\n\n".$paymentData;
 
 ?>
