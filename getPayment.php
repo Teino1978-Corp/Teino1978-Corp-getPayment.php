@@ -1,18 +1,16 @@
 <?php
  
 require 'ConfigFactory.php';
-require 'OAuthFactory.php';
-require 'Utility.php';
+require 'OAuthRequest.php';
  
-$accessTokenData=Utility::getStoredTokens();
-$endpoint = ConfigFactory::getEndpoints();
-
-    $paymentId="";
+    $c = new Creds();
+    $creds = $c->creds();
+    $links = $c->links();
+    $accessTokenData = getAccessToken($links, $creds);    
     
-    $payment = new OAuthFactory($endpoint['getPaymentById'], $accessTokenData, null, $paymentId );
+    $paymentId = "";
+    $payment = new OAuthRequest($endpoint['getPaymentById'], $accessTokenData, null, $paymentId);
     $payment->createHeader();
-    $paymentData=sendRequest()
-    ;
-    echo $paymentData;
+    echo $payment->sendRequest();
  
 ?>
